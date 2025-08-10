@@ -1,4 +1,4 @@
-use std::{env, process};
+use std::{env, fs, process};
 
 fn main() {
     let args: Vec<String>  = env::args().collect();
@@ -14,5 +14,12 @@ fn main() {
 
     println!("Searching for {query}");
     println!("In file {file_path}");
+
+    let contents = fs::read_to_string(file_path)
+        .unwrap_or_else(|_| panic!("Could not read the specified file {file_path}"));
+
+    println!("File contents: ");
+
+    println!("{contents}");
 
 }
