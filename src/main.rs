@@ -3,6 +3,8 @@ use std::{
     fs, process,
 };
 
+use minigrep::search;
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     let config: Config = Config::build(&args).unwrap_or_else(|err| {
@@ -16,14 +18,18 @@ fn main() {
 }
 
 fn run(config: Config) -> Result<(), Box<dyn std::error::Error>> {
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.file_path);
+    // println!("Searching for {}", config.query);
+    // println!("In file {}", config.file_path);
 
     let contents = fs::read_to_string(&config.file_path)?;
 
-    println!("File contents: ");
+    // println!("File contents: ");
 
-    println!("{contents}");
+    // println!("{contents}");
+
+    for line in search(&config.query, &contents){
+        println!("{line}");
+    }
 
     Ok(())
 }
